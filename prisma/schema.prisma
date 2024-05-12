@@ -1,0 +1,68 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url = env("POSTGRES_PRISMA_URL") // uses connection pooling
+  directUrl = env("POSTGRES_URL_NON_POOLING") // uses a direct connection
+}
+
+model Rezept {
+  id          String   @id @default(uuid())
+  name        String   @unique
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  duration    Int
+  image       String?
+  file        String?
+  description String?
+  difficulty  Int
+  rating      Int
+  zutaten     Rezept_Zutaten[]
+  tags        Tag[]
+}
+
+model Zutat {
+  id      String   @id @default(uuid())
+  name    String   @unique
+  rezepte Rezept_Zutaten[]
+}
+
+model Einheit {
+  id      Int              @id @default(autoincrement())
+  name    String           @unique
+  rezepte Rezept_Zutaten[]
+}
+
+model Rezept_Zutaten {
+  quantity  Int
+  rezept    Rezept  @relation(fields: [rezeptId], references: [id])
+  rezeptId  String
+  zutat     Zutat   @relation(fields: [zutatId], references: [id])
+  zutatId   String
+  einheit   Einheit @relation(fields: [einheitId], references: [id])
+  einheitId Int
+
+  @@id([rezeptId, zutatId])
+}
+
+model Kategorie {
+  id   String @id @default(uuid())
+  name String @unique
+  tags Tag[]
+}
+
+model Tag {
+  id          String    @id @default(uuid())
+  name        String    @unique
+  kategorie   Kategorie @relation(fields: [kategorieId], references: [id])
+  kategorieId String
+  rezepte     Rezept[]
+}
