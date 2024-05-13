@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { Inter } from "next/font/google";
 const inter = Inter({ subsets: ["latin"] });
+import Link from "next/link";
 
 import { Button } from "react-bootstrap";
 import TestComp from "@/components/TestComp";
@@ -23,7 +24,7 @@ export default function Home({ data }) {
   return (
     <main className={`flex min-h-screen flex-col items-center justify-between p-24 ${inter.className}`}>
       <TestComp rezepte={data.data} />
-      <Button>Hallo</Button>
+      <Link href="/rezepte/create">Rezept erstellen</Link>
     </main>
   );
 }
