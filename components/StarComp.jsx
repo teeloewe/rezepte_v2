@@ -1,5 +1,5 @@
 import StarSvg from "./StarSvg";
-import { use, useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef } from "react";
 
 export default function StarComp() {
     const [stars, setStars] = useState(0)

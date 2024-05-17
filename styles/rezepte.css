@@ -10,3 +10,25 @@
     cursor: pointer;
     filter: brightness(70%)
 }
+
+
+
+.search-result {
+    padding: 5px 5px;
+}
+
+.search-result:hover {
+    background-color: #efefef;
+}
+
+.results-list {
+    width: 100%;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0px 0px 8px #ddd;
+    border-radius: 10px;
+    margin-top: 10px;
+    max-height: 130px;
+    overflow-y: auto;
+}
