@@ -1,8 +1,7 @@
-import StarSvg from "./svg/StarSvg";
-import { useEffect, useState, useRef } from "react";
+import StarSvg from "../svg/StarSvg";
+import { useEffect, useRef } from "react";
 
-export default function StarComp() {
-    const [stars, setStars] = useState(0)
+export default function StarComp({ stars, setStars }) {
     const divRef = useRef(0)
 
     useEffect(() => {

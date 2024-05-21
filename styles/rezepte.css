@@ -33,15 +33,41 @@
     overflow-y: auto;
 }
 
-.tag-add-item {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
+
+.create-add-item {
     border: var(--bs-border-width) solid var(--bs-border-color);
     border-radius: var(--bs-border-radius);
 }
 
-.tag-add-item button {
-    justify-self: flex-end;
+.tag-add-item {
+    justify-content: space-between;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.zutat-add-item {
+    align-items: center;
+    display: grid;
+    gap: 0.5rem;
+    grid-template-columns: 10% 10% auto 56px;
+}
+
+.zutaten-add {
+    display: grid;
+    gap: 0.5rem;
+    grid-template-columns: 10% 10% auto 56px;
+}
+
+.zutaten-add-list {
+    position: absolute;
+}
+
+@media only screen and (max-width: 768px) {
+    .zutaten-add {
+        grid-template-columns: 15% 25% auto 56px;
+    }
+    .zutat-add-item {
+        grid-template-columns: 15% 25% auto 56px;
+    }
 }
