@@ -1,8 +1,9 @@
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 import PlusSvg from '@/components/svg/PlusSvg';
+import { useState } from 'react';
 
-export const SearchBarZutaten = ({ setResults, input, setInput }) => {
+const SearchBarZutaten = ({ addZutat, setResults, input, setInput }) => {
     const TEST = [
         {name: "Globi", id: 1},
         {name: "Globi1", id: 2},
@@ -13,23 +14,42 @@ export const SearchBarZutaten = ({ setResults, input, setInput }) => {
     ]
     //! ON CLICK CHANGE LIST
 
+    const [quantity, setQuantity] = useState(0)
+    const [einheit, setEinheit] = useState("Gramm")
+
     const handleChange = (value) => {
         setInput(value);
         if(value === "") return setResults([])
         setResults(TEST.filter(e => e.name.includes(value)))
-    };
+    }
+
+
+    const handleClick = () => {
+        if(input === "") return
+        if(quantity === 0) return
+        addZutat({
+            name: input,
+            quantity,
+            einheit
+        })
+        setInput("")
+        setQuantity("")
+        setEinheit("Gramm")
+    }
     
     return (
         <div className='zutaten-add'>
-            <Form.Control type='number' placeholder='Menge!'/>
-            <Form.Select>
-                <option value={1}>Gramm</option>
-                <option value={2}>Liter</option>
-                <option value={3}>Kilo</option>
+            <Form.Control value={quantity} onChange={(e) => setQuantity(e.target.value)} type='number'  placeholder='Menge!'/>
+            <Form.Select value={einheit} onChange={e => setEinheit(e.target.value)}>
+                <option value={"Gramm"}>Gramm</option>
+                <option value={"Liter"}>Liter</option>
+                <option value={"Kilo"}>Kilo</option>
             </Form.Select>
             <Form.Control className='h-100' type='text' placeholder='Gib Zutat-Name ein!' value={input} onChange={(e) => handleChange(e.target.value)}/>
-            <Button variant='secondary'><PlusSvg /></Button>
+            <Button variant='secondary' onClick={() => handleClick()}><PlusSvg /></Button>
         </div>
         
     );
 };
+
+export default SearchBarZutaten

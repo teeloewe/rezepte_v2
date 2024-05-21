@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 
-export default function TestComp({ rezepte }) {
+const TestComp = ({ rezepte }) => {
     useEffect(() => {
         console.log(rezepte)
     }, [rezepte])
@@ -13,3 +13,5 @@ export default function TestComp({ rezepte }) {
         </>
     );
 }
+
+export default TestComp

@@ -1,4 +1,4 @@
-export const SearchResult = ({ result, setInput }) => {
+const SearchResult = ({ result, setInput }) => {
     return (
         <div
             className="search-result"
@@ -8,3 +8,5 @@ export const SearchResult = ({ result, setInput }) => {
         </div>
     );
 };
+
+export default SearchResult

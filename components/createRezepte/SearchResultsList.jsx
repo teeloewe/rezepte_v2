@@ -1,6 +1,6 @@
-import { SearchResult } from "./SearchResult";
+import SearchResult from "./SearchResult";
 
-export const SearchResultsList = ({ setInput, results }) => {
+const SearchResultsList = ({ setInput, results }) => {
     return (
         <div className={`results-list`}>
             {results.map((result, id) => {
@@ -9,3 +9,5 @@ export const SearchResultsList = ({ setInput, results }) => {
     </div>
     );
 };
+
+export default SearchResultsList

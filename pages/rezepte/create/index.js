@@ -1,10 +1,11 @@
-import Form from 'react-bootstrap/Form'
-import StarComp from "@/components/createRezepte/StarComp"
-import Button from 'react-bootstrap/Button'
-import { SearchBarTags } from '@/components/createRezepte/SearchBarTags';
-import { SearchResultsList } from '@/components/createRezepte/SearchResultsList';
-import { SearchBarZutaten } from '@/components/createRezepte/SearchBarZutaten'
 import { useEffect, useState } from 'react';
+
+import Form from 'react-bootstrap/Form'
+import Button from 'react-bootstrap/Button'
+
+import StarComp from "@/components/createRezepte/StarComp"
+import TagAddWrapper from '@/components/createRezepte/TagAddWrapper';
+import ZutatenAddWrapper from '@/components/createRezepte/ZutatenAddWrapper';
 import TagAddItem from '@/components/createRezepte/TagAddItem';
 import ZutatAddItem from '@/components/createRezepte/ZutatAddItem';
 
@@ -18,16 +19,30 @@ export default function Home() {
     const [bewertung, setBewertung] = useState(0)
     const [schwierigkeit, setSchwierigkeit] = useState(0)
 
-    const [tagResults, setTagResults] = useState([])
-    const [tagInput, setTagInput] = useState("")
+    const [tags, setTags] = useState([])
 
-    const [zutatenResults, setZutatenResults] = useState([])
-    const [zutatenInput, setZutatenInput] = useState("")
+    function addTag(tag) {
+        setTags([...tags, tag])
+    }
+
+    function removeTag(tag) {
+        setTags(tags.filter((e) => e !== tag))
+    }
+
+    const [zutaten, setZutaten] = useState([])
+
+    function addZutat(zutat) {
+        setZutaten([...zutaten, zutat])
+    }
+
+    function removeZutat(name) {
+        setZutaten(zutaten.filter((e) => e.name !== name))
+    }
+
 
     useEffect(() => {
-        console.log(bewertung)
-        console.log(schwierigkeit)
-    }, [bewertung, schwierigkeit])
+        console.log(zutaten)
+    }, [zutaten])
     
     return (
         <div className='container'>
@@ -69,17 +84,18 @@ export default function Home() {
 
                 <Form.Group className='p-2' controlid='formTag'>
                     <Form.Label>Tags:</Form.Label>
-                    <SearchBarTags setResults={setTagResults} input={tagInput} setInput={setTagInput}/>
-                    {tagResults && tagResults.length > 0 && <SearchResultsList setInput={setTagInput} results={tagResults}></SearchResultsList>}
-                    <TagAddItem tagName={"Asiatisch"} />
+                    <TagAddWrapper addTag={addTag}/>
+                    {tags.map((tag) => { 
+                        return <TagAddItem remove={removeTag} key={tag} tagName={tag}/>
+                    })}
                 </Form.Group>
 
                 <Form.Group className='p-2' controlId='formZutaten'>
                     <Form.Label>Zutaten:</Form.Label>
-                    <SearchBarZutaten setResults={setZutatenResults} input={zutatenInput} setInput={setZutatenInput}/>
-                    {zutatenResults && zutatenResults.length > 0 && <SearchResultsList setInput={setZutatenInput} results={zutatenResults}></SearchResultsList>}
-                    <ZutatAddItem anzahl={500} einheit={"Gramm"} zutatName={"Lauch"} />
-                    <ZutatAddItem anzahl={5} einheit={"Esslöffel"} zutatName={"Käse"} />
+                    <ZutatenAddWrapper addZutat={addZutat}/>
+                    {zutaten.map((zutat) => { 
+                        return <ZutatAddItem remove={removeZutat} anzahl={zutat.quantity} einheit={zutat.einheit} zutatName={zutat.name} key={zutat.name} />
+                    })}
                 </Form.Group>
             </Form>
         </div>

@@ -1,9 +1,8 @@
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 import PlusSvg from '@/components/svg/PlusSvg';
-import { useEffect } from 'react';
 
-export const SearchBarTags = ({ setResults, input, setInput }) => {
+const SearchBarTags = ({ addTag, setResults, input, setInput }) => {
     const TEST = [
         {name: "Test", id: 1},
         {name: "Test1", id: 2},
@@ -19,11 +18,19 @@ export const SearchBarTags = ({ setResults, input, setInput }) => {
         if(value === "") return setResults([])
         setResults(TEST.filter(e => e.name.includes(value)))
     };
+
+    const handleClick = () => {
+        if(input === "") return
+        addTag(input)
+        setInput("")
+    }
     
     return (
         <div className='flex gap-2'>
             <Form.Control type='text' placeholder='Gib Tag-Name ein!' value={input} onChange={(e) => handleChange(e.target.value)}/>
-            <Button variant='secondary'><PlusSvg /></Button>
+            <Button variant='secondary' onClick={(e) => handleClick()}><PlusSvg /></Button>
         </div>
     );
 };
+
+export default SearchBarTags

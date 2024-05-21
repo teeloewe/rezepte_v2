@@ -4,7 +4,7 @@ const inter = Inter({ subsets: ["latin"] });
 import Link from "next/link";
 
 import { Button } from "react-bootstrap";
-import TestComp from "@/components/createRezepte/TestComp";
+import TestComp from "@/components/TestComp";
 
 import { getAllRezepte } from "@/lib/rezepte/rezeptGet";
 
