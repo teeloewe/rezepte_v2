@@ -32,3 +32,10 @@
     max-height: 130px;
     overflow-y: auto;
 }
+
+.tag-add-item {
+    padding: .375rem .75rem;
+    display: block;
+    border: var(--bs-border-width) solid var(--bs-border-color);
+    border-radius: var(--bs-border-radius);
+}

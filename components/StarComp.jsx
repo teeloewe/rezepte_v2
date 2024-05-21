@@ -1,4 +1,4 @@
-import StarSvg from "./StarSvg";
+import StarSvg from "./svg/StarSvg";
 import { useEffect, useState, useRef } from "react";
 
 export default function StarComp() {

@@ -1,6 +1,6 @@
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
-import PlusSvg from '@/components/PlusSvg';
+import PlusSvg from '@/components/svg/PlusSvg';
 import { useEffect } from 'react';
 
 export const SearchBarTags = ({ setResults, input, setInput }) => {
@@ -15,7 +15,6 @@ export const SearchBarTags = ({ setResults, input, setInput }) => {
     //! ON CLICK CHANGE LIST
 
     const handleChange = (value) => {
-        console.log("HANDLE")
         setInput(value);
         if(value === "") return setResults([])
         setResults(TEST.filter(e => e.name.includes(value)))

@@ -4,10 +4,11 @@ import Button from 'react-bootstrap/Button'
 import { SearchBarTags } from '@/components/SearchBarTags';
 import { SearchResultsList } from '@/components/SearchResultsList';
 import { useState } from 'react';
+import TagAddItem from '@/components/TagAddItem';
 
 export default function Home() {
-    const [results, setResults] = useState([])
-    const [input, setInput] = useState("")
+    const [tagResults, setTagResults] = useState([])
+    const [tagInput, setTagInput] = useState("")
     
     return (
         <div className='container'>
@@ -44,8 +45,11 @@ export default function Home() {
                     <Form.Control type='file'/>
                 </Form.Group>
                 <Form.Group className='p-2' controlid='formTag'>
-                    <SearchBarTags setResults={setResults} input={input} setInput={setInput}></SearchBarTags>
-                    {results && results.length > 0 && <SearchResultsList setInput={setInput} results={results}></SearchResultsList>}
+                    <SearchBarTags setResults={setTagResults} input={tagInput} setInput={setTagInput}></SearchBarTags>
+                    {tagResults && tagResults.length > 0 && <SearchResultsList setInput={setTagInput} results={tagResults}></SearchResultsList>}
+                    <TagAddItem tagName={"Asiatisch"} />
+                    <TagAddItem tagName={"Indisch"}/>
+                    <TagAddItem tagName={"Sauce"}/>
                 </Form.Group>
                 
             </Form>
