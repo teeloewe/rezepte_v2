@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 
-
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 
@@ -42,16 +41,38 @@ export default function Home({ dataTags, dataZutaten }) {
     const [zutaten, setZutaten] = useState([])
 
     function addZutat(zutat) {
+        zutat.quantity = parseInt(zutat.quantity)
         setZutaten([...zutaten, zutat])
     }
 
     function removeZutat(name) {
         setZutaten(zutaten.filter((e) => e.name !== name))
     }
+
+    async function handleSubmit(e) {
+        e.preventDefault()
+        let data = await fetch("/api/rezepte", {
+            method: "POST",
+            body: JSON.stringify(
+                {
+                    name,
+                    duration: parseInt(duration),
+                    image: null,
+                    file: null,
+                    description,
+                    difficulty: schwierigkeit,
+                    rating: bewertung,
+                    tags,
+                    zutaten,
+                }
+            )
+        })
+        console.log(await data.json())
+    }
     
     return (
         <div className='container'>
-            <Form className='md:w-5/6 mx-auto'>
+            <Form className='md:w-5/6 mx-auto' onSubmit={(e) => handleSubmit(e)}>
                 <Form.Group className="p-2" controlid="formName">
                     <Form.Label>Rezept-Name:</Form.Label>
                     <Form.Control type="text" value={name} onChange={(e) => setName(e.target.value)} placeholder="Gib Rezept-Name ein!" />
@@ -102,6 +123,12 @@ export default function Home({ dataTags, dataZutaten }) {
                         return <ZutatAddItem remove={removeZutat} anzahl={zutat.quantity} einheit={zutat.einheit} zutatName={zutat.name} key={zutat.name} />
                     })}
                 </Form.Group>
+                <Form.Group className='p-2'>
+                    <Button variant='secondary' type='submit'>
+                        Rezept Erstellen
+                    </Button>
+                </Form.Group>
+                
             </Form>
         </div>
         
