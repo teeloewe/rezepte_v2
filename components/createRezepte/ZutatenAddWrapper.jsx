@@ -2,13 +2,13 @@ import { useState } from 'react'
 import SearchBarZutaten from './SearchBarZutaten'
 import SearchResultsList from './SearchResultsList'
 
-const ZutatenAddWrapper = ({ addZutat }) => {
+const ZutatenAddWrapper = ({ addZutat, zutaten }) => {
     const [zutatenResults, setZutatenResults] = useState([])
     const [zutatenInput, setZutatenInput] = useState("")
 
     return (
         <>
-            <SearchBarZutaten addZutat={addZutat} setResults={setZutatenResults} input={zutatenInput} setInput={setZutatenInput}/>
+            <SearchBarZutaten addZutat={addZutat} setResults={setZutatenResults} input={zutatenInput} setInput={setZutatenInput} zutaten={zutaten}/>
             {zutatenResults && zutatenResults.length > 0 && <SearchResultsList setInput={setZutatenInput} results={zutatenResults}></SearchResultsList>}
         </>
     )

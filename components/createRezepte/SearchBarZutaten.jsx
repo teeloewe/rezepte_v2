@@ -3,15 +3,7 @@ import Button from 'react-bootstrap/Button'
 import PlusSvg from '@/components/svg/PlusSvg';
 import { useState } from 'react';
 
-const SearchBarZutaten = ({ addZutat, setResults, input, setInput }) => {
-    const TEST = [
-        {name: "Globi", id: 1},
-        {name: "Globi1", id: 2},
-        {name: "Globi12", id: 3},
-        {name: "Globi123", id: 4},
-        {name: "Globi1234", id: 5},
-        {name: "Globi12345", id: 6},
-    ]
+const SearchBarZutaten = ({ addZutat, setResults, input, setInput, zutaten }) => {
     //! ON CLICK CHANGE LIST
 
     const [quantity, setQuantity] = useState(0)
@@ -20,7 +12,7 @@ const SearchBarZutaten = ({ addZutat, setResults, input, setInput }) => {
     const handleChange = (value) => {
         setInput(value);
         if(value === "") return setResults([])
-        setResults(TEST.filter(e => e.name.includes(value)))
+        setResults(zutaten.filter(e => e.name.includes(value)))
     }
 
 

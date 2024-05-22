@@ -16,7 +16,7 @@ import { getZutaten } from '@/lib/zutaten/zutat';
 export async function getServerSideProps() {
     let tags = await getTags()
     let zutaten = await getZutaten()
-    return { props: { dataTags: tags, dataZutaten: zutaten } }
+    return { props: { dataTags: tags.data, dataZutaten: zutaten.data } }
 }
 
 export default function Home({ dataTags, dataZutaten }) {
@@ -48,11 +48,6 @@ export default function Home({ dataTags, dataZutaten }) {
     function removeZutat(name) {
         setZutaten(zutaten.filter((e) => e.name !== name))
     }
-
-
-    useEffect(() => {
-        console.log(dataZutaten)
-    }, [])
     
     return (
         <div className='container'>
@@ -94,7 +89,7 @@ export default function Home({ dataTags, dataZutaten }) {
 
                 <Form.Group className='p-2' controlid='formTag'>
                     <Form.Label>Tags:</Form.Label>
-                    <TagAddWrapper addTag={addTag}/>
+                    <TagAddWrapper addTag={addTag} tags={dataTags}/>
                     {tags.map((tag) => { 
                         return <TagAddItem remove={removeTag} key={tag} tagName={tag}/>
                     })}
@@ -102,7 +97,7 @@ export default function Home({ dataTags, dataZutaten }) {
 
                 <Form.Group className='p-2' controlId='formZutaten'>
                     <Form.Label>Zutaten:</Form.Label>
-                    <ZutatenAddWrapper addZutat={addZutat}/>
+                    <ZutatenAddWrapper addZutat={addZutat} zutaten={dataZutaten}/>
                     {zutaten.map((zutat) => { 
                         return <ZutatAddItem remove={removeZutat} anzahl={zutat.quantity} einheit={zutat.einheit} zutatName={zutat.name} key={zutat.name} />
                     })}
