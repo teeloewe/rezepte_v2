@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 
+
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 
@@ -9,7 +10,16 @@ import ZutatenAddWrapper from '@/components/createRezepte/ZutatenAddWrapper';
 import TagAddItem from '@/components/createRezepte/TagAddItem';
 import ZutatAddItem from '@/components/createRezepte/ZutatAddItem';
 
-export default function Home() {
+import { getTags } from '@/lib/tags/tag';
+import { getZutaten } from '@/lib/zutaten/zutat';
+
+export async function getServerSideProps() {
+    let tags = await getTags()
+    let zutaten = await getZutaten()
+    return { props: { dataTags: tags, dataZutaten: zutaten } }
+}
+
+export default function Home({ dataTags, dataZutaten }) {
     const [name, setName] = useState("")
     const [description, setDescription] = useState("")
     const [duration, setDuration] = useState(0)
@@ -41,8 +51,8 @@ export default function Home() {
 
 
     useEffect(() => {
-        console.log(zutaten)
-    }, [zutaten])
+        console.log(dataZutaten)
+    }, [])
     
     return (
         <div className='container'>

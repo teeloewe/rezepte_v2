@@ -1,9 +1,7 @@
-import Image from "next/image";
 import { Inter } from "next/font/google";
 const inter = Inter({ subsets: ["latin"] });
 import Link from "next/link";
 
-import { Button } from "react-bootstrap";
 import TestComp from "@/components/TestComp";
 
 import { getAllRezepte } from "@/lib/rezepte/rezeptGet";
