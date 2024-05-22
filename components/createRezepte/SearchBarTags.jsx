@@ -23,6 +23,7 @@ const SearchBarTags = ({ addTag, setResults, input, setInput }) => {
         if(input === "") return
         addTag(input)
         setInput("")
+        setResults([])
     }
     
     return (

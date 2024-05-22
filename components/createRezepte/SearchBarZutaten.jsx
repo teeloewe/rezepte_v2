@@ -35,6 +35,7 @@ const SearchBarZutaten = ({ addZutat, setResults, input, setInput }) => {
         setInput("")
         setQuantity("")
         setEinheit("Gramm")
+        setResults([])
     }
     
     return (
