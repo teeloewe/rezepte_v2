@@ -12,7 +12,7 @@ const SearchBarZutaten = ({ addZutat, setResults, input, setInput, zutaten }) =>
     const handleChange = (value) => {
         setInput(value);
         if(value === "") return setResults([])
-        setResults(zutaten.filter(e => e.name.includes(value)))
+        setResults(zutaten.filter(e => e.name.toLowerCase().includes(value.toLowerCase())))
     }
 
 

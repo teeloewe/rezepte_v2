@@ -8,7 +8,7 @@ const SearchBarTags = ({ addTag, setResults, input, setInput, tags }) => {
     const handleChange = (value) => {
         setInput(value);
         if(value === "") return setResults([])
-        setResults(tags.filter(e => e.name.includes(value)))
+        setResults(tags.filter(e => e.name.toLowerCase().includes(value.toLowerCase())))
     };
 
     const handleClick = () => {
