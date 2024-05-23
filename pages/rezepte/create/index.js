@@ -11,14 +11,16 @@ import ZutatAddItem from '@/components/createRezepte/ZutatAddItem';
 
 import { getTags } from '@/lib/tags/tag';
 import { getZutaten } from '@/lib/zutaten/zutat';
+import { getEinheiten } from '@/lib/einheiten/einheit';
 
 export async function getServerSideProps() {
     let tags = await getTags()
     let zutaten = await getZutaten()
-    return { props: { dataTags: tags.data, dataZutaten: zutaten.data } }
+    let einheiten = await getEinheiten()
+    return { props: { dataTags: tags.data, dataZutaten: zutaten.data, dataEinheiten: einheiten.data} }
 }
 
-export default function Home({ dataTags, dataZutaten }) {
+export default function Home({ dataTags, dataZutaten, dataEinheiten }) {
     const [name, setName] = useState("")
     const [description, setDescription] = useState("")
     const [duration, setDuration] = useState(0)
@@ -118,7 +120,7 @@ export default function Home({ dataTags, dataZutaten }) {
 
                 <Form.Group className='p-2' controlId='formZutaten'>
                     <Form.Label>Zutaten:</Form.Label>
-                    <ZutatenAddWrapper addZutat={addZutat} zutaten={dataZutaten}/>
+                    <ZutatenAddWrapper einheiten={dataEinheiten} addZutat={addZutat} zutaten={dataZutaten}/>
                     {zutaten.map((zutat) => { 
                         return <ZutatAddItem remove={removeZutat} anzahl={zutat.quantity} einheit={zutat.einheit} zutatName={zutat.name} key={zutat.name} />
                     })}

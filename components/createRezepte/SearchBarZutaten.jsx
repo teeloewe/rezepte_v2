@@ -3,7 +3,7 @@ import Button from 'react-bootstrap/Button'
 import PlusSvg from '@/components/svg/PlusSvg';
 import { useState } from 'react';
 
-const SearchBarZutaten = ({ addZutat, setResults, input, setInput, zutaten }) => {
+const SearchBarZutaten = ({ addZutat, setResults, input, setInput, zutaten, einheiten }) => {
     //! ON CLICK CHANGE LIST
 
     const [quantity, setQuantity] = useState(0)
@@ -34,9 +34,9 @@ const SearchBarZutaten = ({ addZutat, setResults, input, setInput, zutaten }) =>
         <div className='zutaten-add'>
             <Form.Control value={quantity} onChange={(e) => setQuantity(e.target.value)} type='number'  placeholder='Menge!'/>
             <Form.Select value={einheit} onChange={e => setEinheit(e.target.value)}>
-                <option value={"Gramm"}>Gramm</option>
-                <option value={"Liter"}>Liter</option>
-                <option value={"Kilo"}>Kilo</option>
+                {einheiten.map(e => {
+                    return <option value={e.name} key={e.id}>{e.name}</option>
+                })}
             </Form.Select>
             <Form.Control className='h-100' type='text' placeholder='Gib Zutat-Name ein!' value={input} onChange={(e) => handleChange(e.target.value)}/>
             <Button variant='secondary' onClick={() => handleClick()}><PlusSvg /></Button>
