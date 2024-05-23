@@ -15,7 +15,14 @@ export default function Home({ dataZutaten }) {
 
     async function handleSubmit(e) {
         e.preventDefault()
-        console.log(newZutat)
+        const res = await fetch('/api/zutaten', {
+            method: "POST",
+            body: {
+                name: JSON.stringify(newZutat),
+            }
+        })
+        const data = await res.json()
+        console.log(data)
     }
 
 
