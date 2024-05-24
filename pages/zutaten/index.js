@@ -4,6 +4,7 @@ import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 
 import { getZutaten } from '@/lib/zutaten/zutat';
+import ZutatWrapper from '@/components/zutaten/ZutatWrapper';
 
 export async function getServerSideProps() {
     let zutaten = await getZutaten()
@@ -17,12 +18,22 @@ export default function Home({ dataZutaten }) {
         e.preventDefault()
         const res = await fetch('/api/zutaten', {
             method: "POST",
-            body: {
-                name: JSON.stringify(newZutat),
-            }
+            body: JSON.stringify({
+                name: newZutat,
+            })
         })
         const data = await res.json()
         console.log(data)
+        if (data.code === 200) {
+            dataZutaten.push({
+                name: newZutat,
+            })
+            setNewZutat("")
+        }
+    }
+
+    async function remove(zutat) {
+        console.log("first")
     }
 
 
@@ -35,7 +46,8 @@ export default function Home({ dataZutaten }) {
                 </Form.Group>
                 <Form.Group className='p-2'>
                     <Button variant='secondary' type='Submit'>Zutat Hinzufügen</Button>
-                </Form.Group>  
+                </Form.Group>
+                <ZutatWrapper remove={remove} zutaten={dataZutaten}/>  
             </Form>
         </div>
         

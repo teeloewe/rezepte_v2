@@ -5,7 +5,7 @@ const TagAddItem = ({ tagName, remove }) => {
 
 
     return (
-        <div className="tag-add-item create-add-item my-2 p-0" variant={'light'}>
+        <div className="add-single-item create-add-item my-2 p-0">
             <span className="mx-2">{tagName}</span>
             <Button variant="secondary" onClick={() => remove(tagName)} className=""><MinusSvg /></Button>
         </div>
