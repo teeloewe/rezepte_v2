@@ -63,6 +63,13 @@
     position: absolute;
 }
 
+
+
+.zutat-wrapper {
+    height: 50vh;
+    overflow-y: auto;
+}
+
 @media only screen and (max-width: 768px) {
     .zutaten-add {
         grid-template-columns: 15% 25% auto 56px;

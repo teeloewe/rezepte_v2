@@ -12,6 +12,7 @@ export async function getServerSideProps() {
 }
 
 export default function Home({ dataZutaten }) {
+    const [zutaten, setZutaten] = useState(dataZutaten)
     const [newZutat, setNewZutat] = useState("")
 
     async function handleSubmit(e) {
@@ -25,15 +26,20 @@ export default function Home({ dataZutaten }) {
         const data = await res.json()
         console.log(data)
         if (data.code === 200) {
-            dataZutaten.push({
-                name: newZutat,
-            })
+            setZutaten([...zutaten, { name: newZutat }])
             setNewZutat("")
         }
     }
 
     async function remove(zutat) {
-        console.log("first")
+        const res = await fetch(`/api/zutaten/${zutat}`, {
+            method: "DELETE"
+        })
+        const data = await res.json()
+        console.log(data)
+        if (data.code === 200) {
+            setZutaten(zutaten.filter(z => z.name !== zutat))
+        }
     }
 
 
@@ -47,7 +53,7 @@ export default function Home({ dataZutaten }) {
                 <Form.Group className='p-2'>
                     <Button variant='secondary' type='Submit'>Zutat Hinzufügen</Button>
                 </Form.Group>
-                <ZutatWrapper remove={remove} zutaten={dataZutaten}/>  
+                <ZutatWrapper remove={remove} zutaten={zutaten}/>  
             </Form>
         </div>
         
