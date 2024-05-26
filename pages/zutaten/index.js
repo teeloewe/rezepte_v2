@@ -15,6 +15,15 @@ export default function Home({ dataZutaten }) {
     const [zutaten, setZutaten] = useState(dataZutaten)
     const [newZutat, setNewZutat] = useState("")
 
+    function compare ( a, b ) {
+        const name1 = a.name.toLowerCase()
+        const name2 = b.name.toLowerCase()
+
+        if ( name1 < name2 ) return -1
+        if ( name1 > name2 ) return 1
+        return 0
+        }
+
     async function handleSubmit(e) {
         e.preventDefault()
         const res = await fetch('/api/zutaten', {
@@ -26,7 +35,7 @@ export default function Home({ dataZutaten }) {
         const data = await res.json()
         console.log(data)
         if (data.code === 200) {
-            setZutaten([...zutaten, { name: newZutat }])
+            setZutaten([...zutaten, { name: newZutat }].sort(compare))
             setNewZutat("")
         }
     }
