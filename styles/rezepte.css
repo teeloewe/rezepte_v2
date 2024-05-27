@@ -65,9 +65,15 @@
 
 
 
-.zutat-wrapper {
-    height: 50vh;
+.wrapper {
+    max-height: 70vh;
     overflow-y: auto;
+}
+
+.tag-add {
+    display: grid;
+    gap: 0.5rem;
+    grid-template-columns: 60% 40%;
 }
 
 @media only screen and (max-width: 768px) {
@@ -77,4 +83,8 @@
     .zutat-add-item {
         grid-template-columns: 15% 25% auto 56px;
     }
+    .tag-add {
+        grid-template-columns: 70% 30%;
+    }
+
 }

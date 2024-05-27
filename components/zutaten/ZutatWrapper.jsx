@@ -3,9 +3,9 @@ import ZutatItem from "./ZutatItem"
 const ZutatWrapper = ({ zutaten, remove }) => {
 
     return (
-        <div className="p-2 zutat-wrapper" >
+        <div className="p-2 wrapper" >
             {zutaten.map(z => {
-                return  <ZutatItem remove={remove} key={z.name} zutatName={z.name}/>
+                return  <ZutatItem remove={remove} key={z.id} zutatName={z.name}/>
             })}
         </div>
     )

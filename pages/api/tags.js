@@ -2,8 +2,8 @@ import { getTags, createTag } from "@/lib/tags/tag"
 
 export default async function handler(req, res) {
     if (req.method == "POST") {
-        const { name, category } = JSON.parse(req.body)
-        const data = await createTag(name, category)
+        const { name, kategorie } = JSON.parse(req.body)
+        const data = await createTag(name, kategorie)
         res.status(data.code).json(data)
     } else {
         const data = await getTags()

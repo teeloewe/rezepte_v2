@@ -1,10 +1,11 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 
 import { getZutaten } from '@/lib/zutaten/zutat';
 import ZutatWrapper from '@/components/zutaten/ZutatWrapper';
+import { compare } from '@/lib/helpers';
 
 export async function getServerSideProps() {
     let zutaten = await getZutaten()
@@ -14,15 +15,6 @@ export async function getServerSideProps() {
 export default function Home({ dataZutaten }) {
     const [zutaten, setZutaten] = useState(dataZutaten)
     const [newZutat, setNewZutat] = useState("")
-
-    function compare ( a, b ) {
-        const name1 = a.name.toLowerCase()
-        const name2 = b.name.toLowerCase()
-
-        if ( name1 < name2 ) return -1
-        if ( name1 > name2 ) return 1
-        return 0
-        }
 
     async function handleSubmit(e) {
         e.preventDefault()
@@ -35,9 +27,10 @@ export default function Home({ dataZutaten }) {
         const data = await res.json()
         console.log(data)
         if (data.code === 200) {
-            setZutaten([...zutaten, { name: newZutat }].sort(compare))
+            setZutaten([...zutaten, data.data].sort(compare))
             setNewZutat("")
         }
+        
     }
 
     async function remove(zutat) {
