@@ -96,7 +96,7 @@ export default function Home({ dataTags, dataZutaten, dataEinheiten }) {
                     </Form.Group>
                     <Form.Group className='flex flex-col'>
                         <Form.Label>Dauer:</Form.Label>
-                        <Form.Control value={duration} onChange={(e) => setDuration(e.target.value)} className='p-2 h-full min-h-12' type='number' placeholder='Gib Dauer vom Rezept ein!' />
+                        <Form.Control value={duration} onChange={(e) => setDuration(e.target.value)} className='p-2 h-full min-h-12' type='number' placeholder='(Minuten)' />
                     </Form.Group>
                 </div>
 

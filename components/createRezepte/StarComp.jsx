@@ -20,11 +20,11 @@ const StarComp = ({ stars, setStars }) => {
 
     return (
         <div ref={divRef} className="flex flex-row">
-            <StarSvg className="svg-star" onClick={(e) => selectStar(1, e)}/>
-            <StarSvg className="svg-star" onClick={(e) => selectStar(2, e)}/>
-            <StarSvg className="svg-star" onClick={(e) => selectStar(3, e)}/>
-            <StarSvg className="svg-star" onClick={(e) => selectStar(4, e)}/>
-            <StarSvg className="svg-star" onClick={(e) => selectStar(5, e)}/>
+            <StarSvg className="svg-star svg-star-click" onClick={(e) => selectStar(1, e)}/>
+            <StarSvg className="svg-star svg-star-click" onClick={(e) => selectStar(2, e)}/>
+            <StarSvg className="svg-star svg-star-click" onClick={(e) => selectStar(3, e)}/>
+            <StarSvg className="svg-star svg-star-click" onClick={(e) => selectStar(4, e)}/>
+            <StarSvg className="svg-star svg-star-click" onClick={(e) => selectStar(5, e)}/>
         </div>
     );
 }

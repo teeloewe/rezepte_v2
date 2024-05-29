@@ -6,7 +6,7 @@
     fill: #ED8A19;
 }
 
-.svg-star path:hover{
+.svg-star-click path:hover{
     cursor: pointer;
     filter: brightness(70%)
 }
