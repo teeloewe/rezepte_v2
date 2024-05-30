@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import Link from "next/link";
 
 const TestComp = ({ rezepte }) => {
     useEffect(() => {
@@ -8,7 +9,7 @@ const TestComp = ({ rezepte }) => {
     return (
         <>
             {rezepte.map((r) => {
-                return <h1 key={r.name}>{r.name}</h1>;
+                return <Link href={`/rezepte/${r.id}`} key={r.name}>{r.name}</Link>;
             })}
         </>
     );

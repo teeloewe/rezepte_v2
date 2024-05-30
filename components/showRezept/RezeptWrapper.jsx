@@ -45,10 +45,10 @@ const RezeptWrapper = ({dataRezept}) => {
                     </div>
                 </div>
                 
-                <div className="rezept-anleitung">
+                {rezept.description && <div className="rezept-anleitung">
                     <span><b>Beschreibung</b></span>
                     <div>{rezept.description}</div>
-                </div>
+                </div>}
             </div>
             
             <hr></hr>
