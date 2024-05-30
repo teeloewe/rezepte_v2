@@ -15,7 +15,7 @@ const StarCompLite = ({ stars }) => {
     }, [stars])
 
     return (
-        <div ref={divRef} className="flex flex-row">
+        <div ref={divRef} className="flex flex-row my-2">
             <StarSvg className="svg-star"/>
             <StarSvg className="svg-star"/>
             <StarSvg className="svg-star"/>
