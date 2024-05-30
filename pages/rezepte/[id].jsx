@@ -23,7 +23,10 @@ export async function getStaticProps({ params }) {
     const { id } = params
     console.log(id)
     const rezept = JSON.parse(JSON.stringify(await getRezeptById(id)))
-    return { props: { dataRezept: rezept } }
+    return { 
+        props: { dataRezept: rezept },
+        revalidate: 5,
+    }
 }   
 
 export default function Home({ dataRezept }) {
