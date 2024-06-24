@@ -12,10 +12,14 @@ const SearchBarTags = ({ addTag, setResults, input, setInput, tags }) => {
     };
 
     const handleClick = () => {
-        if(input === "") return
-        addTag(input)
-        setInput("")
-        setResults([])
+        if (input === "") return
+        if (tags.some(t => t.name.toLowerCase() === input.toLowerCase())) {
+            addTag(input)
+            setInput("")
+            setResults([])
+        }
+        
+
     }
     
     return (

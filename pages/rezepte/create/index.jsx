@@ -32,7 +32,9 @@ export default function Home({ dataTags, dataZutaten, dataEinheiten }) {
 
     const [tags, setTags] = useState([])
 
+
     function addTag(tag) {
+        if (tags.includes(tag)) return
         setTags([...tags, tag])
     }
 
@@ -132,6 +134,7 @@ export default function Home({ dataTags, dataZutaten, dataEinheiten }) {
                 </Form.Group>
                 
             </Form>
+
         </div>
         
         
