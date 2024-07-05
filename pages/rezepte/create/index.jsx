@@ -136,7 +136,6 @@ export default function Home({ dataTags, dataZutaten, dataEinheiten }) {
                 </Form.Group>
                 
             </Form>
-
         </div>
         
         
