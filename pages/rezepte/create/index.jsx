@@ -32,7 +32,7 @@ export default function Home({ dataTags, dataZutaten, dataEinheiten }) {
 
     const [tags, setTags] = useState([])
 
-
+    //!Lowercase
     function addTag(tag) {
         if (tags.includes(tag)) return
         setTags([...tags, tag])
@@ -44,7 +44,9 @@ export default function Home({ dataTags, dataZutaten, dataEinheiten }) {
 
     const [zutaten, setZutaten] = useState([])
 
+    //!Lowercase
     function addZutat(zutat) {
+        if (zutaten.some(z => z.name === zutat.name)) return
         zutat.quantity = parseInt(zutat.quantity)
         setZutaten([...zutaten, zutat])
     }
