@@ -4,11 +4,33 @@ import PlusSvg from '@/components/svg/PlusSvg';
 import { useState } from 'react';
 import TagAddModal from '@/components/createRezepte/TagAddModal';
 
-const SearchBarTags = ({ addTag, setResults, input, setInput, tags }) => {
+const SearchBarTags = ({ addTag, setResults, input, setInput, tags, kategorien }) => {
     const [show, setShow] = useState(false);
+    const [kategorie, setKategorie] = useState(kategorien[0].name)
 
-    const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
+    const handleClose = async () => {
+        if (input === "") return
+        
+        const res = await fetch('/api/tags', {
+            method: "POST",
+            body: JSON.stringify({
+                name: input,
+                kategorie,
+            })
+        })
+        const data = await res.json()
+
+        if (data.code !== 200) return console.log(data.error)
+        
+        tags.push(data.data)
+        addTag(input)
+        setInput("")
+        setResults([])
+        setShow(false)
+    }
+
+    
 
     //! ON CLICK CHANGE LIST
 
@@ -27,9 +49,6 @@ const SearchBarTags = ({ addTag, setResults, input, setInput, tags }) => {
         } else {
             handleShow()
         }
-        
-        
-
     }
     
     return (
@@ -38,7 +57,7 @@ const SearchBarTags = ({ addTag, setResults, input, setInput, tags }) => {
                 <Form.Control type='text' placeholder='Gib Tag-Name ein!' value={input} onChange={(e) => handleChange(e.target.value)}/>
                 <Button variant='secondary' onClick={(e) => handleClick()}><PlusSvg /></Button>
             </div>
-            <TagAddModal tag={input} show={show} handleClose={handleClose} />
+            <TagAddModal kategorien={kategorien} tag={input} show={show} handleClose={handleClose} kategorie={kategorie} setKategorie={setKategorie} />
         </>
         
     );

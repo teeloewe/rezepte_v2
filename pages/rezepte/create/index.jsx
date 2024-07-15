@@ -12,15 +12,17 @@ import ZutatAddItem from '@/components/createRezepte/ZutatAddItem';
 import { getTags } from '@/lib/tags/tag';
 import { getZutaten } from '@/lib/zutaten/zutat';
 import { getEinheiten } from '@/lib/einheiten/einheit';
+import { getKategorien } from '@/lib/kategorien/kategorie';
 
 export async function getServerSideProps() {
     let tags = await getTags()
     let zutaten = await getZutaten()
     let einheiten = await getEinheiten()
-    return { props: { dataTags: tags.data, dataZutaten: zutaten.data, dataEinheiten: einheiten.data} }
+    let kategorien = await getKategorien()
+    return { props: { dataTags: tags.data, dataZutaten: zutaten.data, dataEinheiten: einheiten.data, dataKategorien: kategorien.data} }
 }
 
-export default function Home({ dataTags, dataZutaten, dataEinheiten }) {
+export default function Home({ dataTags, dataZutaten, dataEinheiten, dataKategorien }) {
     const [name, setName] = useState("")
     const [description, setDescription] = useState("")
     const [duration, setDuration] = useState(0)
@@ -116,7 +118,7 @@ export default function Home({ dataTags, dataZutaten, dataEinheiten }) {
 
                 <Form.Group className='p-2' controlid='formTag'>
                     <Form.Label>Tags:</Form.Label>
-                    <TagAddWrapper addTag={addTag} tags={dataTags}/>
+                    <TagAddWrapper addTag={addTag} tags={dataTags} kategorien={dataKategorien}/>
                     {tags.map((tag) => { 
                         return <TagAddItem remove={removeTag} key={tag} tagName={tag}/>
                     })}
