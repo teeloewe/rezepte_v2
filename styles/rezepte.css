@@ -111,6 +111,16 @@
     max-width: 1000px;
 }
 
+.filter-select-zutaten {
+    max-height: 30vh;
+    overflow-y: scroll;
+}
+
+.filter-select-tags {
+    max-height: 25vh;
+    overflow-y: scroll;
+}
+
 @media only screen and (max-width: 768px) {
     .zutaten-add {
         grid-template-columns: 15% 25% auto 56px;

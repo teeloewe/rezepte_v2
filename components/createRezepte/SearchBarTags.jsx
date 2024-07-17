@@ -31,7 +31,7 @@ const SearchBarTags = ({ addTag, setResults, input, setInput, tags, kategorien }
     }
 
     
-
+    //! HandleClose with cross top right
     //! ON CLICK CHANGE LIST
 
     const handleChange = (value) => {
