@@ -1,6 +1,7 @@
 import { getAllRezepte } from "@/lib/rezepte/rezeptGet";
 import { createRezept } from "@/lib/rezepte/rezepteCreate";
 import { deleteRezept } from "@/lib/rezepte/rezepteDelete";
+import { filterRezepte } from "@/lib/rezepte/rezeptGet";
 
 const testData = {
     name: "Gurkensalat",
@@ -43,8 +44,5 @@ export default async function handler(req, res) {
         } else {
             res.status(200).json({name: "Glon"})
         }
-    } else {
-        let data = await deleteRezept("Gurkensalat")
-        res.status(200).json(data);
-    }   
+    }
 }

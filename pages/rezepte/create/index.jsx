@@ -77,6 +77,7 @@ export default function Home({ dataTags, dataZutaten, dataEinheiten, dataKategor
         })
         console.log(await data.json())
     }
+
     
     return (
         <div className='container'>

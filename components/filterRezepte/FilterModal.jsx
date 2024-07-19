@@ -2,7 +2,7 @@ import Modal from 'react-bootstrap/Modal'
 import Button from 'react-bootstrap/Button'
 import ModalForm from './ModalForm'
 
-const FilterModal = ({ handleClose, show, zutaten, tags, kategorien }) => {
+const FilterModal = ({ handleClose, show, zutaten, tags, kategorien, setFilter, filter }) => {
     return (
         <Modal show={show} onHide={handleClose}>
             <Modal.Header closeButton>
@@ -11,7 +11,7 @@ const FilterModal = ({ handleClose, show, zutaten, tags, kategorien }) => {
                 </Modal.Title>
             </Modal.Header>
             <Modal.Body>
-                <ModalForm zutaten={zutaten} tags={tags} kategorien={kategorien} />
+                <ModalForm zutaten={zutaten} tags={tags} kategorien={kategorien} setFilter={setFilter} filter={filter}/>
             </Modal.Body>
             <Modal.Footer>
                 <Button variant='secondary' onClick={handleClose}>Fertig!</Button>
