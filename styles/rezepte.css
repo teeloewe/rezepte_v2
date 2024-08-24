@@ -121,6 +121,13 @@
     overflow-y: scroll;
 }
 
+.filter-wrapper {
+    display: grid;
+    grid-template-columns: 20% 10% auto 30%;
+    column-gap: 5px;
+
+}
+
 @media only screen and (max-width: 768px) {
     .zutaten-add {
         grid-template-columns: 15% 25% auto 56px;

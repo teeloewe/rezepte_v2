@@ -59,7 +59,7 @@ export default function Home({ dataTags, dataZutaten, dataEinheiten, dataKategor
 
     async function handleSubmit(e) {
         e.preventDefault()
-        let data = await fetch("/api/rezepte", {
+        let res = await fetch("/api/rezepte", {
             method: "POST",
             body: JSON.stringify(
                 {
@@ -75,7 +75,17 @@ export default function Home({ dataTags, dataZutaten, dataEinheiten, dataKategor
                 }
             )
         })
-        console.log(await data.json())
+        let data = await res.json()
+        if (data.code !== 200) return console.log(data.error)
+        setName("")
+        setDescription("")
+        setDuration("")
+        setImage("")
+        setFile("")
+        setBewertung(0)
+        setSchwierigkeit(0)
+        setTags([])
+        setZutaten([])
     }
 
     

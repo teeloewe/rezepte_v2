@@ -44,5 +44,9 @@ export default async function handler(req, res) {
         } else {
             res.status(200).json({name: "Glon"})
         }
+    } else {
+        let data = await deleteRezept("Cinque Pii")
+        res.status(data.code).json(data)
+        
     }
 }
