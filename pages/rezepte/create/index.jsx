@@ -13,7 +13,7 @@ import { getTags } from '@/lib/tags/tag';
 import { getZutaten } from '@/lib/zutaten/zutat';
 import { getEinheiten } from '@/lib/einheiten/einheit';
 import { getKategorien } from '@/lib/kategorien/kategorie';
-import AiModal from '@/components/createRezepte/AIModal';
+import AiModal from '@/components/createRezepte/AiModal';
 
 export async function getServerSideProps() {
     let tags = await getTags()
