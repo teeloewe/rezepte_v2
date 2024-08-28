@@ -13,6 +13,7 @@ import { getTags } from '@/lib/tags/tag';
 import { getZutaten } from '@/lib/zutaten/zutat';
 import { getEinheiten } from '@/lib/einheiten/einheit';
 import { getKategorien } from '@/lib/kategorien/kategorie';
+import AiModal from '@/components/createRezepte/AIModal';
 
 export async function getServerSideProps() {
     let tags = await getTags()
@@ -31,6 +32,12 @@ export default function Home({ dataTags, dataZutaten, dataEinheiten, dataKategor
 
     const [bewertung, setBewertung] = useState(0)
     const [schwierigkeit, setSchwierigkeit] = useState(0)
+
+    const [aiShow, setAiShow] = useState(false)
+    const handleAiClose = () => setAiShow(false)
+    const handleAiShow = () => setAiShow(true)
+    
+
 
     const [tags, setTags] = useState([])
 
@@ -146,9 +153,14 @@ export default function Home({ dataTags, dataZutaten, dataEinheiten, dataKategor
                     <Button variant='secondary' type='submit'>
                         Rezept Erstellen
                     </Button>
+                    <Button variant='secondary' type='button' onClick={handleAiShow}>
+                        KI Modal
+                    </Button>
                 </Form.Group>
                 
             </Form>
+
+            <AiModal show={aiShow} handleClose={handleAiClose}/>
         </div>
         
         
