@@ -95,6 +95,12 @@ export default function Home({ dataTags, dataZutaten, dataEinheiten, dataKategor
         setZutaten([])
     }
 
+    function addAiData(aiData) {
+        setName(aiData.name)
+        setDescription(aiData.description)
+        setZutaten(prev => [...prev, ...aiData.zutaten])
+    }
+
     
     return (
         <div className='container'>
@@ -160,7 +166,7 @@ export default function Home({ dataTags, dataZutaten, dataEinheiten, dataKategor
                 
             </Form>
 
-            <AiModal show={aiShow} handleClose={handleAiClose}/>
+            <AiModal show={aiShow} handleClose={handleAiClose} einheiten={dataEinheiten} addAiData={addAiData}/>
         </div>
         
         
