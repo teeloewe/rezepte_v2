@@ -7,7 +7,7 @@ const SearchBarZutaten = ({ addZutat, setResults, input, setInput, zutaten, einh
     //! ON CLICK CHANGE LIST
 
     const [quantity, setQuantity] = useState(0)
-    const [einheit, setEinheit] = useState("Gramm")
+    const [einheit, setEinheit] = useState("EL")
 
     const handleChange = (value) => {
         setInput(value);
@@ -19,17 +19,6 @@ const SearchBarZutaten = ({ addZutat, setResults, input, setInput, zutaten, einh
     const handleClick = async () => {
         if(input === "") return
         if(quantity === 0) return   
-        if(!zutaten.some(z => z.name.toLowerCase() == input.toLowerCase())) {
-            const res = await fetch('/api/zutaten', {
-                method: 'POST',
-                body: JSON.stringify({
-                    name: input
-                })
-            })
-            const data = await res.json()
-            if (!data.code === 200) return
-            zutaten.push(data.data)
-        }
         
         addZutat({ name: input, quantity, einheit })
         setInput("")

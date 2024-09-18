@@ -54,10 +54,23 @@ export default function Home({ dataTags, dataZutaten, dataEinheiten, dataKategor
     const [zutaten, setZutaten] = useState([])
 
     //!Lowercase
-    function addZutat(zutat) {
+    async function addZutat(zutat) {
+        if(!dataZutaten.some(z => z.name.toLowerCase() == zutat.name.toLowerCase())) {
+            const res = await fetch('/api/zutaten', {
+                method: 'POST',
+                body: JSON.stringify({
+                    name: zutat.name
+                })
+            })
+            const data = await res.json()
+            if (!data.code === 200) return
+            dataZutaten.push(data.data)
+        }
         if (zutaten.some(z => z.name === zutat.name)) return
         zutat.quantity = parseInt(zutat.quantity)
-        setZutaten([...zutaten, zutat])
+        console.log(zutat)
+        setZutaten(prev => [...prev, zutat])
+        console.log(zutaten)
     }
 
     function removeZutat(name) {
@@ -98,7 +111,7 @@ export default function Home({ dataTags, dataZutaten, dataEinheiten, dataKategor
     function addAiData(aiData) {
         setName(aiData.name)
         setDescription(aiData.description)
-        setZutaten(prev => [...prev, ...aiData.zutaten])
+        aiData.zutaten.forEach(z => addZutat(z))
     }
 
     

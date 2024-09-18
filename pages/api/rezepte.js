@@ -38,12 +38,8 @@ const testData = {
 
 export default async function handler(req, res) {
     if (req.method === 'POST') {
-        if(process.env.NODE_ENV == "development") {
-            let data = await createRezept(JSON.parse(req.body))
-            res.status(data.code).json(data)
-        } else {
-            res.status(200).json({name: "Glon"})
-        }
+        let data = await createRezept(JSON.parse(req.body))
+        res.status(data.code).json(data)
     } else {
         let data = await deleteRezept("Cinque Pii")
         res.status(data.code).json(data)

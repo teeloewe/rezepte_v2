@@ -11,11 +11,14 @@ const s3Client = new S3Client({
 })
 
 async function  uploadFileToS3(file, fileName) {
+    let ext = fileName.split(".").pop()
+    if (!ext || ext != "png" && ext != "jpg") return null
+
     const params = {
         Bucket: process.env.AWS_BUCKET,
         Key: `${fileName}`,
         Body: file,
-        ContentType: "image/png"
+        ContentType: `image/${ext}`
     }
 
     const command = new PutObjectCommand(params)
@@ -31,6 +34,7 @@ export const config = {
 
 export default async function handler(req, res) {
     if (req.method === "POST") {
+        
         const chunks = [];
 
         // Datenstücke sammeln
@@ -42,12 +46,15 @@ export default async function handler(req, res) {
             try {
                 const [originalFilename, fileContent] = await getFile(req, chunks);
                 const fileName = await uploadFileToS3(fileContent, originalFilename);
+                console.log(fileName)
+                if (!fileName) return res.status(400).json({ message: "Datei Fehler" })
                 const data = await analyseFile(fileName);
                 
                 console.log("File successfully uploaded and analyzed");
 
                 res.status(200).json({ data });
             } catch (error) {
+                console.log(error)
                 res.status(500).json({ message: "Fehler beim Hochladen der Datei." });
             }
         });

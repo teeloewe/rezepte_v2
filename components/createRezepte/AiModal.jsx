@@ -1,12 +1,14 @@
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form'
-import { use, useState } from 'react';
+import { useState } from 'react';
 import AiModalData from './AiModalData';
+import Spinner from 'react-bootstrap/Spinner'
 
 const AiModal = ({show, handleClose, einheiten, addAiData}) => {
     const [file, setFile] = useState(null)
     const [rezeptData, setRezeptData] = useState(null)
+    const [running, setRunning] = useState(false)
 
     const handleFileChange = (e) =>  {
         setFile(e.target.files[0])
@@ -16,11 +18,13 @@ const AiModal = ({show, handleClose, einheiten, addAiData}) => {
         if (!file) return
         const formData = new FormData()
         formData.append("file", file)
-
+        setRunning(true)
         const res = await fetch(`/api/ai/upload`, {
             method: "POST",
             body: formData
         })
+        setRunning(false)
+        if (res.status !== 200) return console.log("fehler")
         const data = await res.json()
         setRezeptData(data.data[0])
     }
@@ -42,7 +46,8 @@ const AiModal = ({show, handleClose, einheiten, addAiData}) => {
                     <Form.Control type='file' onChange={handleFileChange}></Form.Control>
                 </Form.Group>
                 <Button onClick={submitAI}>Rezept Analysieren</Button>
-                {rezeptData && <AiModalData data={rezeptData} setData={setRezeptData} einheiten={einheiten}/>}
+                {rezeptData && !running && <AiModalData data={rezeptData} setData={setRezeptData} einheiten={einheiten}/>}
+                {running && <div className='m-10'><Spinner animation='border' variant='primary'></Spinner></div>}
             </Modal.Body>
                     
             <Modal.Footer>

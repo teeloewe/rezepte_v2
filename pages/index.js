@@ -10,6 +10,7 @@ import { test as testFilter } from "@/lib/rezepte/rezeptGet";
 import { test as testCreate } from "@/lib/rezepte/rezepteCreate";
 import { test as testDel } from "@/lib/rezepte/rezepteDelete";
 import { test as testUpdate } from "@/lib/rezepte/rezepteUpdate";
+import NavBarComp from "@/components/NavBarComp";
 
 export async function getServerSideProps() {
   // testFilter()
@@ -20,9 +21,14 @@ export async function getServerSideProps() {
 
 export default function Home({ data }) {
   return (
+    <>
+
     <main className={`flex min-h-screen flex-col items-center justify-between p-24 ${inter.className}`}>
+      
       <TestComp rezepte={data.data} />
       <Link href="/rezepte/create">Rezept erstellen</Link>
     </main>
+    </>
+    
   );
 }
