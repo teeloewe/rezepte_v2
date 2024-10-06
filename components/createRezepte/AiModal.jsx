@@ -26,6 +26,7 @@ const AiModal = ({show, handleClose, einheiten, addAiData}) => {
         setRunning(false)
         if (res.status !== 200) return console.log("fehler")
         const data = await res.json()
+        console.log(data)
         setRezeptData(data.data[0])
     }
 
