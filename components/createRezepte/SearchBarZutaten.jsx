@@ -4,7 +4,6 @@ import PlusSvg from '@/components/svg/PlusSvg';
 import { useState } from 'react';
 
 const SearchBarZutaten = ({ addZutat, setResults, input, setInput, zutaten, einheiten }) => {
-    //! ON CLICK CHANGE LIST
 
     const [quantity, setQuantity] = useState(0)
     const [einheit, setEinheit] = useState("EL")

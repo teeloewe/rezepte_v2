@@ -26,7 +26,6 @@ const AiModal = ({show, handleClose, einheiten, addAiData}) => {
         setRunning(false)
         if (res.status !== 200) return console.log("fehler")
         const data = await res.json()
-        console.log(data)
         setRezeptData(data.data[0])
     }
 
@@ -43,7 +42,7 @@ const AiModal = ({show, handleClose, einheiten, addAiData}) => {
 
             <Modal.Body>
                 <Form.Group>
-                    <Form.Label>Datei in pngggg/jpg</Form.Label>
+                    <Form.Label>Datei in png/jpg</Form.Label>
                     <Form.Control type='file' onChange={handleFileChange}></Form.Control>
                 </Form.Group>
                 <Button onClick={submitAI}>Rezept Analysieren</Button>

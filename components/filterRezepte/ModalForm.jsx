@@ -1,9 +1,7 @@
 import Form from 'react-bootstrap/Form'
-import Button from 'react-bootstrap/Button'
 import SelectZutaten from './SelectZutaten'
 import SelectTagsWrapper from './SelectTagsWrapper'
 import StarComp from '../createRezepte/StarComp'
-import { useEffect, useState } from 'react'
 
 const ModalForm = ({ zutaten, tags, kategorien, setFilter, filter }) => {
     function setDifficulty(diff) {

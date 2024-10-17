@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
@@ -28,7 +28,9 @@ export default function Home({ dataTags, dataZutaten, dataEinheiten, dataKategor
     const [description, setDescription] = useState("")
     const [duration, setDuration] = useState(0)
     const [image, setImage] = useState("")
+    const [imageName, setImageName] = useState("")
     const [file, setFile] = useState("")
+    const [fileName, setFileName] = useState("")
 
     const [bewertung, setBewertung] = useState(0)
     const [schwierigkeit, setSchwierigkeit] = useState(0)
@@ -37,11 +39,8 @@ export default function Home({ dataTags, dataZutaten, dataEinheiten, dataKategor
     const handleAiClose = () => setAiShow(false)
     const handleAiShow = () => setAiShow(true)
     
-
-
     const [tags, setTags] = useState([])
 
-    //!Lowercase
     function addTag(tag) {
         if (tags.includes(tag)) return
         setTags([...tags, tag])
@@ -53,7 +52,6 @@ export default function Home({ dataTags, dataZutaten, dataEinheiten, dataKategor
 
     const [zutaten, setZutaten] = useState([])
 
-    //!Lowercase
     async function addZutat(zutat) {
         if(!dataZutaten.some(z => z.name.toLowerCase() == zutat.name.toLowerCase())) {
             const res = await fetch('/api/zutaten', {
@@ -77,6 +75,34 @@ export default function Home({ dataTags, dataZutaten, dataEinheiten, dataKategor
         setZutaten(zutaten.filter((e) => e.name !== name))
     }
 
+    async function updateImage(img) {
+        setImage(img)
+        const formData = new FormData()
+        formData.append("file", img)
+        const res = await fetch(`/api/upload`, {
+            method: "POST",
+            body: formData
+        })
+        if (res.status !== 200) return console.log("fehler")
+        const data = await res.json()
+        console.log(data.name)
+        setImageName(data.name)
+    }
+
+    async function updateFile(datei) {
+        setFile(datei)
+        const formData = new FormData()
+        formData.append("file", datei)
+        const res = await fetch(`/api/upload`, {
+            method: "POST",
+            body: formData
+        })
+        if (res.status !== 200) return console.log("fehler")
+        const data = await res.json()
+        console.log(data.name)
+        setFileName(data.name)
+    }
+
     async function handleSubmit(e) {
         e.preventDefault()
         let res = await fetch("/api/rezepte", {
@@ -85,8 +111,8 @@ export default function Home({ dataTags, dataZutaten, dataEinheiten, dataKategor
                 {
                     name,
                     duration: parseInt(duration),
-                    image: null,
-                    file: null,
+                    image: imageName,
+                    file: fileName,
                     description,
                     difficulty: schwierigkeit,
                     rating: bewertung,
@@ -145,12 +171,12 @@ export default function Home({ dataTags, dataZutaten, dataEinheiten, dataKategor
 
                 <Form.Group className='p-2' controlid='formImage'>
                     <Form.Label>Bild:</Form.Label>
-                    <Form.Control onChange={(e) => setImage(e.target.files[0])} type='file'/>
+                    <Form.Control onChange={(e) => updateImage(e.target.files[0])} type='file'/>
                 </Form.Group>
 
                 <Form.Group className='p-2' controlid='formImage'>
                     <Form.Label>Datei:</Form.Label>
-                    <Form.Control onChange={(e) => setFile(e.target.files[0])} type='file'/>
+                    <Form.Control onChange={(e) => updateFile(e.target.files[0])} type='file'/>
                 </Form.Group>
 
                 <Form.Group className='p-2' controlid='formTag'>
@@ -172,8 +198,8 @@ export default function Home({ dataTags, dataZutaten, dataEinheiten, dataKategor
                     <Button variant='secondary' type='submit'>
                         Rezept Erstellen
                     </Button>
-                    <Button variant='secondary' type='button' onClick={handleAiShow}>
-                        KI Modal
+                    <Button className='mx-1' variant='secondary' type='button' onClick={handleAiShow}>
+                        Rezept mit KI hinzufügen
                     </Button>
                 </Form.Group>
                 

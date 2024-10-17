@@ -28,7 +28,7 @@ async function  uploadFileToS3(file, fileName) {
 
 export const config = {
     api: {
-      bodyParser: false, // Deaktiviert das automatische Body-Parsing
+        bodyParser: false,
     },
 };
 
@@ -52,7 +52,7 @@ export default async function handler(req, res) {
                 
                 console.log("File successfully uploaded and analyzed");
 
-                res.status(200).json({ data });
+                res.status(200).json({ data: data, name: fileName });
             } catch (error) {
                 console.log(error)
                 res.status(500).json({ message: "Fehler beim Hochladen der Datei." });

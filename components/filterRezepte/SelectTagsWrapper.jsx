@@ -1,4 +1,3 @@
-import Form from 'react-bootstrap/Form'
 import SelectTags from './SelectTags'
 
 const SelectTagsWrapper = ({ kategorien, tags, filter, setFilter}) => {

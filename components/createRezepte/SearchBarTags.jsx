@@ -30,10 +30,6 @@ const SearchBarTags = ({ addTag, setResults, input, setInput, tags, kategorien }
         setShow(false)
     }
 
-    
-    //! HandleClose with cross top right
-    //! ON CLICK CHANGE LIST
-
     const handleChange = (value) => {
         setInput(value);
         if(value === "") return setResults([])
