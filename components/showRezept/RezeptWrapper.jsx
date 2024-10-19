@@ -5,8 +5,8 @@ import Button from "react-bootstrap/Button"
 import { useRouter } from "next/router"
 import { makeImageUrl } from "@/lib/constants"
 
-const RezeptWrapper = ({dataRezept}) => {
-    const [rezept, setRezept] = useState(dataRezept)
+const RezeptWrapper = ({rezept, handleShow}) => {
+    
     const dateFormatter = new Intl.DateTimeFormat('de', {  day: '2-digit', month: '2-digit', year: 'numeric'})
     const router = useRouter()
 
@@ -26,6 +26,7 @@ const RezeptWrapper = ({dataRezept}) => {
             <div className="p-2 lg:flex justify-between gap-1">
                 <h1 className="mr-auto">{rezept.name}</h1>
                 {rezept.file && <Button onClick={() => window.location.assign(makeImageUrl(rezept.file))} variant="secondary">Rezept Öffnen</Button>}
+                <Button onClick={() => handleShow()} variant="secondary">Rezept Editieren</Button>
                 <Button onClick={() => remove()} variant="secondary">Rezept Löschen</Button>
 
             </div>

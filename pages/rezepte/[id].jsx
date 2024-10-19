@@ -2,6 +2,8 @@ import { useRouter } from "next/router"
 import { getAllRezepte } from "@/lib/rezepte/rezeptGet"
 import { getRezeptById } from "@/lib/rezepte/rezeptGet"
 import RezeptWrapper from "@/components/showRezept/RezeptWrapper"
+import { useEffect, useState } from "react"
+import ChangeModal from "@/components/showRezept/ChangeModal"
 
 export async function getStaticPaths() {
     const rezepte = await getAllRezepte()
@@ -29,8 +31,43 @@ export async function getStaticProps({ params }) {
     }
 }   
 
-export default function Home({ dataRezept }) {
+export default function Home({ dataRezept, id }) {
+    const [name, setName] = useState(dataRezept.data.name)
     const router = useRouter()
+    const [rezept, setRezept] = useState(dataRezept.data)
+    const [show, setShow] = useState(false)
+
+    const handleClose = async () => {
+        update()
+        setShow(false)
+    }
+    const handleShow = () => setShow(true)
+
+    async function update() {
+        console.log(rezept)
+        let res = await fetch(`/api/rezepte/${name}`, {
+            method: "PUT",
+            body: JSON.stringify({
+                ...rezept,
+                tags: rezept.tags.map(tag => tag.name),
+                zutaten: rezept.zutaten.map(zutat => {
+                    return {
+                        name: zutat.zutat.name,
+                        quantity: zutat.quantity,
+                        einheit: zutat.einheit.name
+                    }
+                })
+            })
+        })
+        if (res.status !== 200) {
+            console.log("fehler")
+        }
+        const data = await res.json()
+        setName(rezept.name)
+        console.log(data)
+    }
+
+
     if (router.isFallback) return (
         <h1>Loading...</h1>
     )
@@ -40,6 +77,10 @@ export default function Home({ dataRezept }) {
     )
 
     return (
-        <RezeptWrapper dataRezept={dataRezept.data} />
+        <>
+            <RezeptWrapper rezept={rezept} handleShow={handleShow} />
+            <ChangeModal rezept={rezept} setRezept={setRezept} show={show} handleClose={handleClose} />
+        </>
+
     )
 }

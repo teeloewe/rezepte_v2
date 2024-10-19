@@ -132,6 +132,7 @@ export default function Home({ dataTags, dataZutaten, dataEinheiten, dataKategor
         setSchwierigkeit(0)
         setTags([])
         setZutaten([])
+        setFileName("")
     }
 
     function addAiData(aiData) {
@@ -171,12 +172,13 @@ export default function Home({ dataTags, dataZutaten, dataEinheiten, dataKategor
 
                 <Form.Group className='p-2' controlid='formImage'>
                     <Form.Label>Bild:</Form.Label>
-                    <Form.Control onChange={(e) => updateImage(e.target.files[0])} type='file'/>
+                    <Form.Control onChange={(e) => updateImage(e.target.files[0])}  type='file'/>
                 </Form.Group>
 
                 <Form.Group className='p-2' controlid='formImage'>
                     <Form.Label>Datei:</Form.Label>
                     <Form.Control onChange={(e) => updateFile(e.target.files[0])} type='file'/>
+                    {fileName && <Form.Text>File: {fileName}</Form.Text>}
                 </Form.Group>
 
                 <Form.Group className='p-2' controlid='formTag'>
@@ -205,7 +207,7 @@ export default function Home({ dataTags, dataZutaten, dataEinheiten, dataKategor
                 
             </Form>
 
-            <AiModal show={aiShow} handleClose={handleAiClose} einheiten={dataEinheiten} addAiData={addAiData}/>
+            <AiModal show={aiShow} handleClose={handleAiClose} einheiten={dataEinheiten} addAiData={addAiData} setFileName={setFileName}/>
         </div>
         
         

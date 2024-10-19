@@ -1,7 +1,12 @@
+import { useEffect } from 'react';
 import Form from 'react-bootstrap/Form'
 
 const AiModalZutaten = ({ data, zutat, setData, einheiten }) => {
-    
+    useEffect(() => {
+        if (!einheiten.map(e => e.name).includes(zutat.einheit)) {
+            setData({...data, zutaten: data.zutaten.map(z => z.name === zutat.name ? {...z, einheit: "EL"} : z)})
+        }
+    })
     return (
         <div className='zutaten-add'>
             <Form.Control value={zutat.quantity || ""} onChange={(e) => setData({...data, zutaten: data.zutaten.map(z => z.name === zutat.name ? {...z, quantity: parseInt(e.target.value)} : z)})} type='number'  placeholder='Menge!'/>

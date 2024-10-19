@@ -5,7 +5,6 @@ export default async function handler(req, res) {
     if (req.method == "PUT") {
         const data = await updateZutat(name, JSON.parse(req.body).name)
         res.status(data.code).json(data)
-
     } else if (req.method == "DELETE") {
         const data = await deleteZutat(name)
         res.status(data.code).json(data)

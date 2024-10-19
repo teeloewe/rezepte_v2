@@ -5,13 +5,14 @@ import { useState } from 'react';
 import AiModalData from './AiModalData';
 import Spinner from 'react-bootstrap/Spinner'
 
-const AiModal = ({show, handleClose, einheiten, addAiData}) => {
+const AiModal = ({show, handleClose, einheiten, addAiData, setFileName}) => {
     const [file, setFile] = useState(null)
     const [rezeptData, setRezeptData] = useState(null)
     const [running, setRunning] = useState(false)
 
     const handleFileChange = (e) =>  {
         setFile(e.target.files[0])
+        setFileName(e.target.files[0].name)
     }
 
     async function submitAI() {
