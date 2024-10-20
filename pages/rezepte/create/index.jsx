@@ -35,6 +35,8 @@ export default function Home({ dataTags, dataZutaten, dataEinheiten, dataKategor
     const [bewertung, setBewertung] = useState(0)
     const [schwierigkeit, setSchwierigkeit] = useState(0)
 
+    const [error, setError] = useState("")
+
     const [aiShow, setAiShow] = useState(false)
     const handleAiClose = () => setAiShow(false)
     const handleAiShow = () => setAiShow(true)
@@ -122,7 +124,9 @@ export default function Home({ dataTags, dataZutaten, dataEinheiten, dataKategor
             )
         })
         let data = await res.json()
-        if (data.code !== 200) return console.log(data.error)
+        if (data.code !== 200) {
+            return setError(data.error)
+        }
         setName("")
         setDescription("")
         setDuration("")
@@ -132,7 +136,9 @@ export default function Home({ dataTags, dataZutaten, dataEinheiten, dataKategor
         setSchwierigkeit(0)
         setTags([])
         setZutaten([])
+        setImageName("")
         setFileName("")
+        setError("")
     }
 
     function addAiData(aiData) {
@@ -203,6 +209,7 @@ export default function Home({ dataTags, dataZutaten, dataEinheiten, dataKategor
                     <Button className='mx-1' variant='secondary' type='button' onClick={handleAiShow}>
                         Rezept mit KI hinzufügen
                     </Button>
+                    {<span className='text-red-600'>{error}</span>}
                 </Form.Group>
                 
             </Form>

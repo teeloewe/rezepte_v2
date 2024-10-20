@@ -9,6 +9,7 @@ const AiModal = ({show, handleClose, einheiten, addAiData, setFileName}) => {
     const [file, setFile] = useState(null)
     const [rezeptData, setRezeptData] = useState(null)
     const [running, setRunning] = useState(false)
+    const [error, setError] = useState(false)
 
     const handleFileChange = (e) =>  {
         setFile(e.target.files[0])
@@ -25,9 +26,10 @@ const AiModal = ({show, handleClose, einheiten, addAiData, setFileName}) => {
             body: formData
         })
         setRunning(false)
-        if (res.status !== 200) return console.log("fehler")
+        if (res.status !== 200) return setError(true)
         const data = await res.json()
         setRezeptData(data.data[0])
+        setError(false)
     }
 
     async function addData() {
@@ -53,6 +55,7 @@ const AiModal = ({show, handleClose, einheiten, addAiData, setFileName}) => {
                     
             <Modal.Footer>
                 <Button onClick={addData} variant="secondary">Hinzufügen</Button>
+                {error && <span className='text-red-600'>Die KI konnte dieses Rezept nicht analysieren.</span>}
             </Modal.Footer>
         </Modal>
             

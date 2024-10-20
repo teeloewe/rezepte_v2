@@ -32,7 +32,7 @@ const ModalForm = ({ zutaten, tags, kategorien, setFilter, filter }) => {
                 <Form.Control type='number' value={filter.duration} onChange={(e) => setDuration(e.target.value)}></Form.Control>
             </Form.Group>
             <Form.Group className='p-2'>
-                <Form.Label>Beeinhaltet Folgende Zutaten</Form.Label>
+                <Form.Label>Beinhaltet Folgende Zutaten</Form.Label>
                 <SelectZutaten zutaten={zutaten} setFilter={setFilter} filter={filter}/>
             </Form.Group>
             <SelectTagsWrapper kategorien={kategorien} tags={tags} setFilter={setFilter} filter={filter}/>
