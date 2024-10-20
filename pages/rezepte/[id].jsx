@@ -2,11 +2,11 @@ import { useRouter } from "next/router"
 import { getAllRezepte } from "@/lib/rezepte/rezeptGet"
 import { getRezeptById } from "@/lib/rezepte/rezeptGet"
 import RezeptWrapper from "@/components/showRezept/RezeptWrapper"
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import ChangeModal from "@/components/showRezept/ChangeModal"
 
 export async function getStaticPaths() {
-    const rezepte = await getAllRezepte()
+    const rezepte = await getAllRezepte() 
     const paths = rezepte.data.map((r) => {
         return {
             params: {
@@ -23,18 +23,26 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({ params }) {
     const { id } = params
-    console.log(id)
     const rezept = JSON.parse(JSON.stringify(await getRezeptById(id)))
-    return { 
+    return {
         props: { dataRezept: rezept },
         revalidate: 5,
     }
 }   
 
-export default function Home({ dataRezept, id }) {
-    const [name, setName] = useState(dataRezept.data.name)
+export default function Home({ dataRezept }) {
     const router = useRouter()
+
+    if (router.isFallback) return (
+        <h1>Loading...</h1>
+    )
+
+    if (dataRezept.code === 400) return (
+        <h1>{dataRezept.error}</h1>
+    )
+
     const [rezept, setRezept] = useState(dataRezept.data)
+    const [name, setName] = useState(dataRezept.data.name)
     const [show, setShow] = useState(false)
 
     const handleClose = async () => {
@@ -66,15 +74,6 @@ export default function Home({ dataRezept, id }) {
         setName(rezept.name)
         console.log(data)
     }
-
-
-    if (router.isFallback) return (
-        <h1>Loading...</h1>
-    )
-
-    if (dataRezept.code === 400) return (
-        <h1>{dataRezept.error}</h1>
-    )
 
     return (
         <>
